@@ -122,8 +122,14 @@ if ([array indexOfObject:@"品牌"]!= NSNotFound) {
         NSLog(@"存在");
     }
 ```
+* 12、让导航条的透明
 
-* 12、数学公式
+```objc
+[self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+```
+
+* 13、数学公式
 
 ```objc
 NSLog(@"%i",abs(-3));
