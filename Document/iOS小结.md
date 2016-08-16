@@ -122,14 +122,90 @@ if ([array indexOfObject:@"品牌"]!= NSNotFound) {
         NSLog(@"存在");
     }
 ```
-* 12、让导航条的透明
+
+*  12、让导航条的透明
 
 ```objc
 [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 ```
 
-* 13、数学公式
+* 13、截取图片
+
+```objc
+/**
+ *  根据imageView的大小设置对应等比例的图片
+ *
+ *  @param scale imageView的宽高之比
+ *
+ *  @param image imageView的图片
+ *
+ *  @return 处理后的图片
+ */
+- (UIImage *)imageWithScale:(CGFloat)scale image:(UIImage *)image
+{
+    // scale 是imageView的宽度和高度的比例 image是imageView的图片
+    
+    CGFloat w  = image.size.width;
+    
+    CGFloat h = image.size.height;
+    
+    CGRect rect;
+    
+    if (w / h > scale) {
+    //说明图片的宽度多余  截取图片的宽度是
+        
+        CGFloat width = image.size.height *scale;
+        
+        rect =  CGRectMake((w - width)/2, 0,width, h); //这样写是截取图片中间区域
+    }
+    else
+    {
+        //说明图片的高度多余 截取图片的高度是
+        CGFloat heigh = image.size.width/scale;
+        
+        rect =  CGRectMake(0, (h - heigh)/2,w, heigh);
+    }
+    /** < 在原来图片的尺寸的基础上 按照新的尺寸截图 > **/
+    image = [UIImage imageWithCGImage:CGImageCreateWithImageInRect([image CGImage], rect)];
+    
+    return image;
+}
+```
+
+* 14、保留两位小数点
+
+```objc
+- (NSString *)stringWithFloat:(CGFloat)floatS;
+{
+    float spd = floatS;
+    char buf[10];
+    sprintf(buf, "%.2f", spd);
+    NSString *ss =[NSString stringWithFormat:@"%s",buf];
+    return ss;
+}
+```
+
+* 15、银行卡账号 4位加一空格
+
+```objc
+-(NSString *)normalNumToBankNum
+{
+    NSString *numberStr = @"6221234567890987";
+    NSInteger count = numberStr.length / 4;
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (int n = 0;n < count; n++)
+    {
+        [array addObject:[numberStr substringWithRange:NSMakeRange(n*4, 4)]];
+    }
+    [array addObject:[numberStr substringWithRange:NSMakeRange(count*4, (numberStr.length % 4))]];
+    
+    numberStr = [array componentsJoinedByString:@" "];
+    return numberStr;
+}
+```
+
+* 100、数学公式
 
 ```objc
 NSLog(@"%i",abs(-3));
