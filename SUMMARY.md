@@ -8,5 +8,6 @@
   * [2.day](2day/2day.md)
 * [3day](3day.md)
   * [3day](3day/3day.md)
-* 4day
+* [4day](4day.md)
+  * 4day
 
